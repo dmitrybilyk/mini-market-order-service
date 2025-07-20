@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mini_market
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  wiremock:
+    image: wiremock/wiremock:3.4.2
+    ports:
+      - "8085:8080"
+    volumes:
+      - ./wiremock:/home/wiremock
+    command: --global-response-templating
+
+  order-service:
+    image: orders-service:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mini_market
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      WIREMOCK_HOST: wiremock
+      WIREMOCK_PORT: 8080
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      - postgres
+      - wiremock
+
+volumes:
+  postgres_data:

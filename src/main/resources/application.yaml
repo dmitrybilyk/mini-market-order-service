@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: orders-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mini_market
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+wiremock:
+  host: localhost
+  port: 8085

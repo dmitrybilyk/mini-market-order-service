@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/price\\?symbol=.*"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "symbol": "{{request.query.symbol}}",
+      "price": 210.55
+    }
+  }
+}
