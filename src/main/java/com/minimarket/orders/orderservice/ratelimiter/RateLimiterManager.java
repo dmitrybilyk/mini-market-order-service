@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Manages rate limiters for different accounts to control the frequency of requests.
  * This component creates and caches {@link RateLimiter} instances per account ID,
- * using a predefined configuration that limits requests to 2 per hour with no timeout.
+ * using a predefined configuration that limits requests to 10 per second with no timeout.
  */
 @Component
 public class RateLimiterManager {
@@ -19,8 +19,8 @@ public class RateLimiterManager {
     private final Map<String, RateLimiter> limiters = new ConcurrentHashMap<>();
 
     private final RateLimiterConfig config = RateLimiterConfig.custom()
-            .limitRefreshPeriod(Duration.ofHours(1))
-            .limitForPeriod(2)
+            .limitRefreshPeriod(Duration.ofSeconds(1))
+            .limitForPeriod(10)
             .timeoutDuration(Duration.ZERO)
             .build();
 

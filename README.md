@@ -26,10 +26,13 @@ A Spring Boot REST API that allows clients to submit BUY/SELL market orders for 
 - ✅ Per-account rate limit: 10 requests/sec
 - ✅ Docker Compose setup (App + DB + Mock API)
 - ✅ Swagger UI & OpenAPI documentation
-- ✅ 80%+ unit test coverage
+- ✅ 70%+ unit test coverage
 - ✅ Integration tests with Testcontainers
 
 ---
+
+Prometheus:
+http://localhost:8080/actuator/prometheus
 
 ## 🐳 Dockerized Run
 
@@ -46,7 +49,7 @@ This creates the image `orders-service:0.0.1-SNAPSHOT`.
 ### ▶ 2. Run Docker Compose
 
 ```bash
-docker compose up --build
+docker compose up
 ```
 
 This will start:

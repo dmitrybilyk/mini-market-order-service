@@ -22,11 +22,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * Unit tests for the {@link OrdersController} REST controller.
- * This test class verifies the behavior of the controller's endpoints for retrieving and saving orders
- * using a mocked {@link OrderService} and Spring's MockMvc framework.
- */
+
 @WebMvcTest(OrdersController.class)
 class OrdersControllerTest {
 
@@ -43,10 +39,6 @@ class OrdersControllerTest {
 
     private PriceResponse samplePriceResponse;
 
-    /**
-     * Sets up test data before each test method.
-     * Initializes a sample {@link Order} and {@link PriceResponse} for use in testing controller endpoints.
-     */
     @BeforeEach
     void setUp() {
         sampleOrder = Order.builder()
@@ -65,12 +57,6 @@ class OrdersControllerTest {
                 .build();
     }
 
-    /**
-     * Tests the GET /orders/{id} endpoint to retrieve an order by its ID.
-     * Verifies that the controller returns the expected order details with a 200 OK status.
-     *
-     * @throws Exception if an error occurs during the MockMvc request
-     */
     @Test
     void testGetOrderById() throws Exception {
         when(orderService.getOrderById(1L)).thenReturn(sampleOrder);
@@ -85,12 +71,6 @@ class OrdersControllerTest {
                 .andExpect(jsonPath("$.quantity").value(sampleOrder.getQuantity()));
     }
 
-    /**
-     * Tests the GET /orders endpoint with an accountId parameter to retrieve orders for a specific account.
-     * Verifies that the controller returns the expected list of orders with a 200 OK status.
-     *
-     * @throws Exception if an error occurs during the MockMvc request
-     */
     @Test
     void testGetOrdersForAccount() throws Exception {
         when(orderService.getOrdersByAccountId("acc-123")).thenReturn(List.of(sampleOrder));
@@ -103,13 +83,6 @@ class OrdersControllerTest {
                 .andExpect(jsonPath("$[0].symbol").value("AAPL"));
     }
 
-    /**
-     * Tests the POST /orders endpoint to save a new order.
-     * Verifies that the controller saves the order, returns the expected price response,
-     * and responds with a 200 OK status.
-     *
-     * @throws Exception if an error occurs during the MockMvc request
-     */
     @Test
     void testSaveOrder() throws Exception {
         when(orderService.saveOrder(any(Order.class))).thenReturn(samplePriceResponse);
